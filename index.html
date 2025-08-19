@@ -208,7 +208,6 @@
             color: var(--text-color-dark);
         }
 
-
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -226,7 +225,6 @@
             display: flex;
             flex-direction: column;
             border: 1px solid rgba(135, 206, 235, 0.1);
-            position: relative; /* Needed for absolute positioning of the toggle button */
         }
 
         .project-card:hover {
@@ -253,18 +251,22 @@
             color: rgba(255, 255, 255, 0.85);
             font-size: 1rem;
         }
-
-        /* Styles for the collapsible content */
-        .collapsible-content {
+        
+        /* Styles for the collapsable content wrapper */
+        .project-content-wrapper {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.7s ease-in-out, padding 0.7s ease-in-out;
-            padding-bottom: 0;
+            transition: max-height 0.7s ease-in-out, opacity 0.7s ease;
+            opacity: 0;
+            padding-top: 0;
+            margin-top: 0;
         }
 
-        .project-card.expanded .collapsible-content {
-            max-height: 1000px; /* A large value to allow for any amount of content */
-            padding-bottom: 1rem;
+        /* Class to show the content */
+        .project-content-wrapper.expanded {
+            max-height: 1000px; /* Large enough value to show all content */
+            opacity: 1;
+            padding-top: 1.5rem;
         }
 
         .resume-details {
@@ -288,6 +290,7 @@
 
         .resume-details li {
             margin-bottom: 0.6rem;
+            padding-right: 15px; /* Added for padding on the right */
         }
 
         .tech-stack {
@@ -336,43 +339,27 @@
         .status-Planning { background-color: var(--status-planning); }
         .status-Serving-Notice-Period { background-color: var(--status-notice-period); }
 
+        .read-more-btn {
+            background: transparent;
+            border: none;
+            color: var(--primary-color);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-align: left;
+            padding: 0;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .read-more-btn:hover {
+            color: var(--secondary-color);
+        }
+
 
         .completion-date {
             font-size: 0.9rem;
             color: rgba(255, 255, 255, 0.7);
-        }
-
-        /* Toggle button styles */
-        .toggle-btn {
-            background-color: transparent;
-            color: var(--primary-color);
-            border: 1px solid var(--primary-color);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 1rem;
-            align-self: flex-start; /* Aligns button to the left */
-        }
-
-        .toggle-btn:hover {
-            background-color: var(--primary-color);
-            color: var(--text-color-dark);
-        }
-
-        .toggle-btn i {
-            margin-left: 8px;
-            transition: transform 0.3s ease;
-        }
-
-        /* Rotate icon when expanded */
-        .project-card.expanded .toggle-btn i {
-            transform: rotate(180deg);
         }
 
         /* =================================================== */
@@ -441,8 +428,8 @@
             header h2 { font-size: 1.2rem; }
             .summary-section h3, .skills-section h3 { font-size: 1.4rem; }
             .summary-section p { font-size: 0.9rem; }
-            .contact-info { font-size: 0.9rem; }
             .resume-btn { position: static; margin-top: 1rem; }
+            .contact-info { font-size: 0.9rem; }
         }
     </style>
 </head>
@@ -479,7 +466,7 @@
             <div class="contact-info">
                 <p>Contact: <a href="mailto:mounikk0201@gmail.com" id="contact-email">mounikk0201@gmail.com</a></p>
                 <p>Phone: <span id="contact-phone">469-732-6686</span></p>
-                <p>Connect: <a href="https://www.linkedin.com/in/mounika-kasetti-686979163" target="_blank" id="linkedin">LinkedIn Profile</a> | <a href="https://github.com/yourgithub" target="_blank" id="github">GitHub Profile</a></p>
+                <p>Connect: <a href="https://www.linkedin.com/in/mounika-kasetti-686979163" target="_blank" id="linkedin">LinkedIn Profile</a> | <a href="https://github.com/mounikk0201-k" target="_blank" id="github">GitHub Profile</a></p>
             </div>
             <div class="copyright">
                 <p>&copy; <span id="current-year">2023</span>. All rights reserved.</p>
@@ -495,7 +482,7 @@
                 "email": "mounikk0201@gmail.com",
                 "phone": "469-732-6686",
                 "linkedin": "https://www.linkedin.com/in/mounika-kasetti-686979163",
-                "github": "https://github.com/yourgithub",
+                "github": "https://github.com/mounikk0201-k",
                 "googleDrive": "https://docs.google.com/document/d/1Zmv2NVgsPqgL_bfY0YmAMY0w_xGIDtwG/edit?usp=drive_link&ouid=113978765611895534442&rtpof=true&sd=true"
             },
             "summary": "Results-driven Full Stack Java Developer with 7+ years of experience building and deploying scalable enterprise solutions. Expertise in modern JavaScript frameworks (React, Angular), back-end technologies (Java, Python), and scalable databases (PostgreSQL, MongoDB). Proven ability to leverage cloud platforms (AWS, Azure) and DevOps best practices, including Kubernetes and CI/CD, to deliver robust, user-centric software products.",
@@ -611,6 +598,7 @@
             const projectsGrid = document.getElementById('projects-grid');
             const skillsGrid = document.getElementById('skills-grid');
 
+            // Collect and display unique skills
             const allSkills = new Set();
             portfolioData.projects.forEach(project => {
                 project.tech_stack.forEach(skill => allSkills.add(skill));
@@ -650,11 +638,11 @@
                 skillsGrid.appendChild(skillBadge);
             });
 
-            portfolioData.projects.forEach(project => {
+            // Populate project cards with expand/collapse functionality
+            portfolioData.projects.forEach((project, index) => {
                 const card = document.createElement('div');
                 card.className = 'project-card';
-                card.dataset.expanded = 'false';
-
+                
                 if (project.url && project.url !== '#') {
                     card.classList.add('clickable');
                     card.addEventListener('click', () => {
@@ -664,28 +652,26 @@
 
                 const statusClass = project.status.replace(/ /g, '-');
 
-                let resumeDetailsHtml = '';
-                if (project.resume_details && project.resume_details.length > 0) {
-                    resumeDetailsHtml = `
+                // HTML for the collapsable content (resume details and tech stack)
+                const expandableContentHtml = `
+                    <div class="project-content-wrapper">
                         <div class="resume-details">
                             <h4>Key Contributions:</h4>
                             <ul>
                                 ${project.resume_details.map(detail => `<li>${detail}</li>`).join('')}
                             </ul>
                         </div>
-                    `;
-                }
+                        <div class="tech-stack">
+                            ${project.tech_stack.map(tech => `<span class="tech-badge">${tech}</span>`).join('')}
+                        </div>
+                    </div>
+                `;
 
                 card.innerHTML = `
                     <h3 class="project-name">${project.name}</h3>
                     <p class="project-description">${project.description}</p>
-                    <div class="collapsible-content">
-                      ${resumeDetailsHtml}
-                      <div class="tech-stack">
-                          ${project.tech_stack.map(tech => `<span class="tech-badge">${tech}</span>`).join('')}
-                      </div>
-                    </div>
-                    <button class="toggle-btn" type="button">Read More <i class="fas fa-chevron-down"></i></button>
+                    <button class="read-more-btn" data-project-index="${index}">Read More</button>
+                    ${expandableContentHtml}
                     <div class="project-meta">
                         <span class="status status-${statusClass}">${project.status}</span>
                         ${project.completion_date ? `<span class="completion-date">${project.completion_date}</span>` : ''}
@@ -695,20 +681,21 @@
                 projectsGrid.appendChild(card);
             });
 
-            // Add event listeners to the toggle buttons
-            document.querySelectorAll('.toggle-btn').forEach(button => {
-                button.addEventListener('click', () => {
-                    const card = button.closest('.project-card');
-                    const isExpanded = card.dataset.expanded === 'true';
-                    
+            // Add event listeners for the new expand/collapse buttons
+            const readMoreButtons = document.querySelectorAll('.read-more-btn');
+            readMoreButtons.forEach(button => {
+                button.addEventListener('click', (event) => {
+                    event.stopPropagation(); // Prevent the card's click event from firing
+                    const card = event.target.closest('.project-card');
+                    const contentWrapper = card.querySelector('.project-content-wrapper');
+                    const isExpanded = contentWrapper.classList.contains('expanded');
+
                     if (isExpanded) {
-                        card.classList.remove('expanded');
-                        card.dataset.expanded = 'false';
-                        button.innerHTML = 'Read More <i class="fas fa-chevron-down"></i>';
+                        contentWrapper.classList.remove('expanded');
+                        event.target.textContent = 'Read More';
                     } else {
-                        card.classList.add('expanded');
-                        card.dataset.expanded = 'true';
-                        button.innerHTML = 'Read Less <i class="fas fa-chevron-up"></i>';
+                        contentWrapper.classList.add('expanded');
+                        event.target.textContent = 'Read Less';
                     }
                 });
             });
