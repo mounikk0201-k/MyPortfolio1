@@ -5,25 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mounika K - Full Stack Java Developer Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-    <!-- Optional: Add Font Awesome for skill icons. Uncomment and ensure you have internet access for icons to load. -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <style>
         :root {
-            --primary-color: #87CEEB; /* Light Sky Blue for accents */
-            --secondary-color: #ADD8E6; /* Lighter Blue for additional highlights/hover */
-            --text-color-light: #FFFFFF; /* White for text on dark backgrounds */
-            --text-color-dark: #1A1A1A; /* Dark text for contrast on blue */
-            --bg-dark: #1A1A1A; /* Dark background for the page */
-            --card-bg-dark: #2C2C2C; /* Slightly lighter dark for card backgrounds */
-            --shadow-dark: 0 6px 16px rgba(0,0,0,0.7); /* More prominent shadow for depth */
-            --border-radius: 10px; /* Slightly larger border-radius for modern look */
-
-            /* Status colors - adjusted for better visibility on dark background, keeping standard meaning where possible */
-            --status-completed: #28a745; /* Green */
-            --status-inprogress: #17a2b8; /* Cyan */
-            --status-planning: #fd7e14; /* Orange */
-            --status-notice-period: #A9A9A9; /* Dark Grey changed to a lighter grey */
+            --primary-color: #87CEEB;
+            --secondary-color: #ADD8E6;
+            --text-color-light: #FFFFFF;
+            --text-color-dark: #1A1A1A;
+            --bg-dark: #1A1A1A;
+            --card-bg-dark: #2C2C2C;
+            --shadow-dark: 0 6px 16px rgba(0,0,0,0.7);
+            --border-radius: 10px;
+            --status-completed: #28a745;
+            --status-inprogress: #17a2b8;
+            --status-planning: #fd7e14;
+            --status-notice-period: #A9A9A9;
         }
 
         * {
@@ -48,14 +45,13 @@
 
         header {
             background-color: var(--card-bg-dark);
-            padding: 2.5rem 0; /* Adjusted padding to accommodate the new button */
+            padding: 2.5rem 0;
             box-shadow: var(--shadow-dark);
             margin-bottom: 2.5rem;
             text-align: center;
             position: relative;
         }
         
-        /* New Resume button styles */
         .resume-btn {
             background-color: transparent;
             color: var(--primary-color);
@@ -71,7 +67,7 @@
             right: 25px;
             display: flex;
             align-items: center;
-            text-decoration: none; /* Add this to remove underline */
+            text-decoration: none;
         }
 
         .resume-btn:hover {
@@ -83,7 +79,6 @@
             margin-right: 8px;
         }
 
-        /* New logo styles */
         .logo {
             font-family: 'Roboto', sans-serif;
             font-size: 2.5rem;
@@ -97,7 +92,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 1.5rem; /* Center and add space below */
+            margin: 0 auto 1.5rem;
             box-shadow: var(--shadow-dark);
             letter-spacing: -2px;
             line-height: 1;
@@ -117,24 +112,17 @@
             color: var(--text-color-light);
         }
 
-        .summary-section, .skills-section, .projects-grid {
-            transition: opacity 0.5s ease-in-out;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        .summary-section {
+        .summary-section, .contact-section, .skills-section, .projects-grid, .education-section {
             background-color: var(--card-bg-dark);
             border-radius: var(--border-radius);
             box-shadow: var(--shadow-dark);
             padding: 2rem;
             margin-bottom: 2.5rem;
             text-align: center;
+            transition: opacity 0.5s ease-in-out;
         }
 
-        .summary-section h3 {
+        .section-heading {
             color: var(--primary-color);
             font-size: 2rem;
             margin-bottom: 1.2rem;
@@ -142,8 +130,8 @@
             padding-bottom: 0.8rem;
             display: inline-block;
         }
-
-        .summary-section p {
+        
+        .section-text {
             font-size: 1.1rem;
             line-height: 1.8;
             color: rgba(255, 255, 255, 0.9);
@@ -151,22 +139,35 @@
             margin: 0 auto;
         }
 
-        .skills-section {
-            background-color: var(--card-bg-dark);
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow-dark);
-            padding: 2rem;
-            margin-bottom: 2.5rem;
+        .contact-section .contact-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .contact-section .contact-item {
             text-align: center;
         }
 
-        .skills-section h3 {
+        .contact-section .contact-icon {
             color: var(--primary-color);
             font-size: 2rem;
-            margin-bottom: 1.5rem;
-            border-bottom: 2px solid var(--primary-color);
-            padding-bottom: 0.8rem;
-            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-section .contact-item p,
+        .contact-section .contact-item a {
+            font-size: 1.1rem;
+            color: var(--text-color-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-section .contact-item a:hover {
+            color: var(--secondary-color);
+            text-decoration: underline;
         }
 
         .skills-grid {
@@ -225,6 +226,7 @@
             display: flex;
             flex-direction: column;
             border: 1px solid rgba(135, 206, 235, 0.1);
+            cursor: pointer;
         }
 
         .project-card:hover {
@@ -232,10 +234,6 @@
             box-shadow: 0 12px 25px rgba(0,0,0,0.9);
             border-color: var(--primary-color);
             padding: 1.8rem;
-        }
-
-        .project-card.clickable {
-            cursor: pointer;
         }
 
         .project-name {
@@ -252,47 +250,6 @@
             font-size: 1rem;
         }
         
-        /* Styles for the collapsable content wrapper */
-        .project-content-wrapper {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.7s ease-in-out, opacity 0.7s ease;
-            opacity: 0;
-            padding-top: 0;
-            margin-top: 0;
-        }
-
-        /* Class to show the content */
-        .project-content-wrapper.expanded {
-            max-height: 1000px; /* Large enough value to show all content */
-            opacity: 1;
-            padding-top: 1.5rem;
-        }
-
-        .resume-details {
-            margin-top: 1.5rem;
-            margin-bottom: 1.5rem;
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        .resume-details h4 {
-            font-size: 1.05rem;
-            font-weight: 600;
-            margin-bottom: 0.8rem;
-            color: var(--secondary-color);
-        }
-
-        .resume-details ul {
-            list-style-type: square;
-            margin-left: 25px;
-            font-size: 0.95rem;
-        }
-
-        .resume-details li {
-            margin-bottom: 0.6rem;
-            padding-right: 15px; /* Added for padding on the right */
-        }
-
         .tech-stack {
             display: flex;
             flex-wrap: wrap;
@@ -337,99 +294,174 @@
         .status-Completed { background-color: var(--status-completed); }
         .status-In-Progress { background-color: var(--status-inprogress); }
         .status-Planning { background-color: var(--status-planning); }
-        .status-Serving-Notice-Period { background-color: var(--status-notice-period); }
-
-        .read-more-btn {
-            background: transparent;
-            border: none;
-            color: var(--primary-color);
-            font-size: 0.9rem;
-            font-weight: 600;
-            text-align: left;
-            padding: 0;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: color 0.3s ease;
-        }
-
-        .read-more-btn:hover {
-            color: var(--secondary-color);
-        }
-
 
         .completion-date {
             font-size: 0.9rem;
             color: rgba(255, 255, 255, 0.7);
         }
 
-        /* =================================================== */
-        /* Footer and Responsive styles remain the same */
-        /* =================================================== */
-        footer {
-            background-color: var(--card-bg-dark);
-            padding: 2.5rem 0;
-            box-shadow: 0 -6px 16px rgba(0,0,0,0.7);
-            text-align: center;
-            color: var(--text-color-light);
-            margin-top: 3rem;
-        }
-
-        .contact-info {
+        .education-item {
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+            padding-bottom: 1.5rem;
             margin-bottom: 1.5rem;
-            font-size: 1.05rem;
+            text-align: left;
         }
 
-        .contact-info p {
-            margin-bottom: 0.5rem;
+        .education-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
         }
 
-        .contact-info a {
-            color: var(--primary-color);
-            text-decoration: none;
-            transition: color 0.3s ease, text-decoration 0.3s ease;
-        }
-
-        .contact-info a:hover {
+        .education-degree {
+            font-size: 1.3rem;
+            font-weight: 600;
             color: var(--secondary-color);
-            text-decoration: underline;
         }
 
-        .copyright {
-            font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.6);
+        .education-info {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 0.5rem;
         }
 
+        .education-details {
+            margin-top: 0.5rem;
+        }
+
+        .education-details ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Modal specific styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: var(--card-bg-dark);
+            margin: 5% auto;
+            padding: 40px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 900px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.9);
+            position: relative;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .close-btn {
+            color: var(--primary-color);
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-btn:hover,
+        .close-btn:focus {
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+        
+        .modal-content h3 {
+            font-size: 2.2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+        }
+        
+        .modal-content p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+        }
+
+        .modal-content h4 {
+            font-size: 1.3rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .modal-content .tech-stack {
+            margin-bottom: 2rem;
+        }
+
+        .modal-content .resume-details {
+            margin-top: 0;
+        }
+        
+        .modal-content ul {
+            list-style-type: disc;
+            margin-left: 25px;
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .modal-content li {
+            margin-bottom: 0.8rem;
+        }
+        
         /* Responsive adjustments */
         @media (max-width: 1024px) {
-            .projects-grid {
-                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            }
+            .projects-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
             header h1 { font-size: 2.8rem; }
             header h2 { font-size: 1.6rem; }
-            .summary-section h3, .skills-section h3 { font-size: 1.8rem; }
+            .section-heading { font-size: 1.8rem; }
         }
 
         @media (max-width: 768px) {
             .projects-grid { grid-template-columns: 1fr; }
             header h1 { font-size: 2.2rem; }
             header h2 { font-size: 1.4rem; }
-            .summary-section h3, .skills-section h3 { font-size: 1.6rem; }
-            .summary-section p { font-size: 1rem; }
+            .section-heading { font-size: 1.6rem; }
+            .section-text { font-size: 1rem; }
             .skills-grid { justify-content: flex-start; }
             .skill-badge { padding: 0.5rem 1rem; font-size: 0.85rem; }
             .project-card { padding: 1.5rem; }
             .project-name { font-size: 1.3rem; }
             .project-description { font-size: 0.95rem; }
+            .modal-content {
+                padding: 30px;
+                width: 95%;
+            }
+            .modal-content h3 { font-size: 1.8rem; }
+            .modal-content p { font-size: 1rem; }
+            .modal-content h4 { font-size: 1.1rem; }
         }
 
         @media (max-width: 480px) {
             .container { padding: 0 15px; }
             header h1 { font-size: 1.8rem; }
             header h2 { font-size: 1.2rem; }
-            .summary-section h3, .skills-section h3 { font-size: 1.4rem; }
-            .summary-section p { font-size: 0.9rem; }
+            .section-heading { font-size: 1.4rem; }
+            .section-text { font-size: 0.9rem; }
             .resume-btn { position: static; margin-top: 1rem; }
-            .contact-info { font-size: 0.9rem; }
+            .contact-section .contact-grid { flex-direction: column; gap: 1rem; }
+            .contact-item p { font-size: 0.9rem; }
         }
     </style>
 </head>
@@ -445,34 +477,73 @@
 
     <main class="container" id="main-content">
         <section class="summary-section">
-            <h3>Professional Summary</h3>
-            <p>
+            <h3 class="section-heading">Professional Summary</h3>
+            <p class="section-text">
                 Results-driven Full Stack Java Developer with 7+ years of experience building and deploying scalable enterprise solutions. Expertise in modern JavaScript frameworks (React, Angular), back-end technologies (Java, Python), and scalable databases (PostgreSQL, MongoDB). Proven ability to leverage cloud platforms (AWS, Azure) and DevOps best practices, including Kubernetes and CI/CD, to deliver robust, user-centric software products.
             </p>
         </section>
 
+        <section class="contact-section">
+            <h3 class="section-heading">Contact & Connect</h3>
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <i class="fas fa-envelope contact-icon"></i>
+                    <p><a href="mailto:mounikk0201@gmail.com" id="contact-email">mounikk0201@gmail.com</a></p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone contact-icon"></i>
+                    <p id="contact-phone">469-732-6686</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fab fa-linkedin contact-icon"></i>
+                    <p><a href="https://www.linkedin.com/in/mounika-kasetti-686979163" target="_blank" id="linkedin">LinkedIn Profile</a></p>
+                </div>
+                <div class="contact-item">
+                    <i class="fab fa-github contact-icon"></i>
+                    <p><a href="https://github.com/mounikk0201-k" target="_blank" id="github">GitHub Profile</a></p>
+                </div>
+            </div>
+        </section>
+
         <section class="skills-section">
-            <h3>My Skills Stack</h3>
+            <h3 class="section-heading">My Skills Stack</h3>
             <div class="skills-grid" id="skills-grid">
                 <!-- Skills will be dynamically inserted here -->
             </div>
         </section>
 
         <div class="projects-grid" id="projects-grid"></div>
+
+        <section class="education-section">
+            <h3 class="section-heading">Education</h3>
+            <div id="education-container">
+                <!-- Education items will be dynamically inserted here -->
+            </div>
+        </section>
     </main>
 
     <footer>
         <div class="container">
-            <div class="contact-info">
-                <p>Contact: <a href="mailto:mounikk0201@gmail.com" id="contact-email">mounikk0201@gmail.com</a></p>
-                <p>Phone: <span id="contact-phone">469-732-6686</span></p>
-                <p>Connect: <a href="https://www.linkedin.com/in/mounika-kasetti-686979163" target="_blank" id="linkedin">LinkedIn Profile</a> | <a href="https://github.com/mounikk0201-k" target="_blank" id="github">GitHub Profile</a></p>
-            </div>
             <div class="copyright">
                 <p>&copy; <span id="current-year">2023</span>. All rights reserved.</p>
             </div>
         </div>
     </footer>
+
+    <!-- Project Details Modal -->
+    <div id="projectModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h3 id="modal-project-name"></h3>
+            <p id="modal-project-description"></p>
+            <div class="project-meta">
+                <span id="modal-project-status" class="status"></span>
+                <span id="modal-project-completion-date" class="completion-date"></span>
+            </div>
+            <div id="modal-tech-stack" class="tech-stack"></div>
+            <div id="modal-resume-details" class="resume-details"></div>
+        </div>
+    </div>
 
     <script>
         const portfolioData = {
@@ -486,6 +557,27 @@
                 "googleDrive": "https://docs.google.com/document/d/1Zmv2NVgsPqgL_bfY0YmAMY0w_xGIDtwG/edit?usp=drive_link&ouid=113978765611895534442&rtpof=true&sd=true"
             },
             "summary": "Results-driven Full Stack Java Developer with 7+ years of experience building and deploying scalable enterprise solutions. Expertise in modern JavaScript frameworks (React, Angular), back-end technologies (Java, Python), and scalable databases (PostgreSQL, MongoDB). Proven ability to leverage cloud platforms (AWS, Azure) and DevOps best practices, including Kubernetes and CI/CD, to deliver robust, user-centric software products.",
+            "education": [
+                {
+                    "degree": "Master of Science in Information Systems",
+                    "school": "University of Texas, Arlington",
+                    "year": "2018",
+                    "details": [
+                        "GPA: 3.8",
+                        "Specialization in Enterprise Systems and Cloud Computing.",
+                        "Coursework included: Data Mining, Distributed Systems, Software Engineering."
+                    ]
+                },
+                {
+                    "degree": "Bachelor of Technology in Computer Science",
+                    "school": "Jawaharlal Nehru Technological University",
+                    "year": "2015",
+                    "details": [
+                        "GPA: 3.6",
+                        "Focused on foundational computer science principles."
+                    ]
+                }
+            ],
             "projects": [
                 {
                     "name": "ATM Modernization and Microservices Migration",
@@ -597,6 +689,9 @@
 
             const projectsGrid = document.getElementById('projects-grid');
             const skillsGrid = document.getElementById('skills-grid');
+            const projectModal = document.getElementById('projectModal');
+            const closeModalBtn = document.querySelector('.close-btn');
+            const educationContainer = document.getElementById('education-container');
 
             // Collect and display unique skills
             const allSkills = new Set();
@@ -610,7 +705,7 @@
                 const skillBadge = document.createElement('span');
                 skillBadge.className = 'skill-badge';
 
-                let iconClass = 'fas fa-code'; // Default generic icon
+                let iconClass = 'fas fa-code';
 
                 if (skill.includes("Java")) iconClass = 'fab fa-java';
                 else if (skill.includes("Spring")) iconClass = 'fas fa-leaf';
@@ -638,66 +733,78 @@
                 skillsGrid.appendChild(skillBadge);
             });
 
-            // Populate project cards with expand/collapse functionality
+            // Populate education section
+            portfolioData.education.forEach(edu => {
+                const eduItem = document.createElement('div');
+                eduItem.className = 'education-item';
+                eduItem.innerHTML = `
+                    <p class="education-degree">${edu.degree}</p>
+                    <p class="education-info">${edu.school} | ${edu.year}</p>
+                    <div class="education-details">
+                        <ul>
+                            ${edu.details.map(detail => `<li>${detail}</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+                educationContainer.appendChild(eduItem);
+            });
+
+            // Function to display the modal with project details
+            function showProjectDetails(project) {
+                document.getElementById('modal-project-name').textContent = project.name;
+                document.getElementById('modal-project-description').textContent = project.description;
+                
+                const statusElement = document.getElementById('modal-project-status');
+                const statusClass = project.status.replace(/ /g, '-');
+                statusElement.textContent = project.status;
+                statusElement.className = `status status-${statusClass}`;
+
+                document.getElementById('modal-project-completion-date').textContent = project.completion_date || '';
+
+                const techStackContainer = document.getElementById('modal-tech-stack');
+                techStackContainer.innerHTML = project.tech_stack.map(tech => `<span class="tech-badge">${tech}</span>`).join('');
+
+                const resumeDetailsContainer = document.getElementById('modal-resume-details');
+                const detailsHtml = `
+                    <h4>Key Contributions:</h4>
+                    <ul>
+                        ${project.resume_details.map(detail => `<li>${detail}</li>`).join('')}
+                    </ul>
+                `;
+                resumeDetailsContainer.innerHTML = detailsHtml;
+
+                projectModal.style.display = 'block';
+            }
+
+            // Populate project cards and add click event listeners
             portfolioData.projects.forEach((project, index) => {
                 const card = document.createElement('div');
                 card.className = 'project-card';
                 
-                if (project.url && project.url !== '#') {
-                    card.classList.add('clickable');
-                    card.addEventListener('click', () => {
-                        window.open(project.url, '_blank');
-                    });
-                }
-
-                const statusClass = project.status.replace(/ /g, '-');
-
-                // HTML for the collapsable content (resume details and tech stack)
-                const expandableContentHtml = `
-                    <div class="project-content-wrapper">
-                        <div class="resume-details">
-                            <h4>Key Contributions:</h4>
-                            <ul>
-                                ${project.resume_details.map(detail => `<li>${detail}</li>`).join('')}
-                            </ul>
-                        </div>
-                        <div class="tech-stack">
-                            ${project.tech_stack.map(tech => `<span class="tech-badge">${tech}</span>`).join('')}
-                        </div>
-                    </div>
-                `;
-
                 card.innerHTML = `
                     <h3 class="project-name">${project.name}</h3>
                     <p class="project-description">${project.description}</p>
-                    <button class="read-more-btn" data-project-index="${index}">Read More</button>
-                    ${expandableContentHtml}
                     <div class="project-meta">
-                        <span class="status status-${statusClass}">${project.status}</span>
+                        <span class="status status-${project.status.replace(/ /g, '-')}">${project.status}</span>
                         ${project.completion_date ? `<span class="completion-date">${project.completion_date}</span>` : ''}
                     </div>
                 `;
 
+                card.addEventListener('click', () => showProjectDetails(project));
+
                 projectsGrid.appendChild(card);
             });
 
-            // Add event listeners for the new expand/collapse buttons
-            const readMoreButtons = document.querySelectorAll('.read-more-btn');
-            readMoreButtons.forEach(button => {
-                button.addEventListener('click', (event) => {
-                    event.stopPropagation(); // Prevent the card's click event from firing
-                    const card = event.target.closest('.project-card');
-                    const contentWrapper = card.querySelector('.project-content-wrapper');
-                    const isExpanded = contentWrapper.classList.contains('expanded');
+            // Close modal button
+            closeModalBtn.addEventListener('click', () => {
+                projectModal.style.display = 'none';
+            });
 
-                    if (isExpanded) {
-                        contentWrapper.classList.remove('expanded');
-                        event.target.textContent = 'Read More';
-                    } else {
-                        contentWrapper.classList.add('expanded');
-                        event.target.textContent = 'Read Less';
-                    }
-                });
+            // Close modal when clicking outside of it
+            window.addEventListener('click', (event) => {
+                if (event.target === projectModal) {
+                    projectModal.style.display = 'none';
+                }
             });
         });
     </script>
