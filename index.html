@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mounika K - Full Stack Java Developer Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- Optional: Add Font Awesome for skill icons. Uncomment and ensure you have internet access for icons to load. -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-color: #87CEEB; /* Light Sky Blue for accents */
+            --secondary-color: #ADD8E6; /* Lighter Blue for additional highlights/hover */
+            --text-color-light: #FFFFFF; /* White for text on dark backgrounds */
+            --text-color-dark: #1A1A1A; /* Dark text for contrast on blue */
+            --bg-dark: #1A1A1A; /* Dark background for the page */
+            --card-bg-dark: #2C2C2C; /* Slightly lighter dark for card backgrounds */
+            --shadow-dark: 0 6px 16px rgba(0,0,0,0.7); /* More prominent shadow for depth */
+            --border-radius: 10px; /* Slightly larger border-radius for modern look */
+
+            /* Status colors - adjusted for better visibility on dark background, keeping standard meaning where possible */
+            --status-completed: #28a745; /* Green */
+            --status-inprogress: #17a2b8; /* Cyan */
+            --status-planning: #fd7e14; /* Orange */
+            --status-notice-period: #A9A9A9; /* Dark Grey changed to a lighter grey */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: var(--text-color-light);
+            background-color: var(--bg-dark);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 25px;
+        }
+
+        header {
+            background-color: var(--card-bg-dark);
+            padding: 2.5rem 0; /* Adjusted padding to accommodate the new button */
+            box-shadow: var(--shadow-dark);
+            margin-bottom: 2.5rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        /* New Resume button styles */
+        .resume-btn {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+            padding: 0.6rem 1.5rem;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: absolute;
+            top: 1.5rem;
+            right: 25px;
+            display: flex;
+            align-items: center;
+            text-decoration: none; /* Add this to remove underline */
+        }
+
+        .resume-btn:hover {
+            background-color: var(--primary-color);
+            color: var(--text-color-dark);
+        }
+
+        .resume-btn i {
+            margin-right: 8px;
+        }
+
+        /* New logo styles */
+        .logo {
+            font-family: 'Roboto', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            background-color: var(--card-bg-dark);
+            border: 2px solid var(--primary-color);
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem; /* Center and add space below */
+            box-shadow: var(--shadow-dark);
+            letter-spacing: -2px;
+            line-height: 1;
+        }
+
+        header h1 {
+            font-size: 3.2rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            color: var(--primary-color);
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+        }
+
+        header h2 {
+            font-size: 1.8rem;
+            font-weight: 300;
+            color: var(--text-color-light);
+        }
+
+        .summary-section, .skills-section, .projects-grid {
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .summary-section {
+            background-color: var(--card-bg-dark);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-dark);
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            text-align: center;
+        }
+
+        .summary-section h3 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 1.2rem;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.8rem;
+            display: inline-block;
+        }
+
+        .summary-section p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .skills-section {
+            background-color: var(--card-bg-dark);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-dark);
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            text-align: center;
+        }
+
+        .skills-section h3 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.8rem;
+            display: inline-block;
+        }
+
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .skill-badge {
+            display: flex;
+            align-items: center;
+            background-color: transparent;
+            color: var(--primary-color);
+            padding: 0.6rem 1.2rem;
+            border-radius: 5px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border: 1px solid var(--primary-color);
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease, border-color 0.3s ease;
+            cursor: default;
+        }
+
+        .skill-badge .skill-icon {
+            margin-right: 8px;
+            font-size: 1.1em;
+            color: var(--primary-color);
+            transition: color 0.3s ease;
+        }
+
+        .skill-badge:hover {
+            background-color: var(--primary-color);
+            color: var(--text-color-dark);
+            transform: translateY(-2px);
+            border-color: var(--primary-color);
+        }
+
+        .skill-badge:hover .skill-icon {
+            color: var(--text-color-dark);
+        }
+
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.8rem;
+            margin-bottom: 3rem;
+        }
+
+        .project-card {
+            background-color: var(--card-bg-dark);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-dark);
+            padding: 1.5rem;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, padding 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(135, 206, 235, 0.1);
+            position: relative; /* Needed for absolute positioning of the toggle button */
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.9);
+            border-color: var(--primary-color);
+            padding: 1.8rem;
+        }
+
+        .project-card.clickable {
+            cursor: pointer;
+        }
+
+        .project-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            color: var(--primary-color);
+        }
+
+        .project-description {
+            margin-bottom: 1.2rem;
+            flex-grow: 1;
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 1rem;
+        }
+
+        /* Styles for the collapsible content */
+        .collapsible-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.7s ease-in-out, padding 0.7s ease-in-out;
+            padding-bottom: 0;
+        }
+
+        .project-card.expanded .collapsible-content {
+            max-height: 1000px; /* A large value to allow for any amount of content */
+            padding-bottom: 1rem;
+        }
+
+        .resume-details {
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .resume-details h4 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: var(--secondary-color);
+        }
+
+        .resume-details ul {
+            list-style-type: square;
+            margin-left: 25px;
+            font-size: 0.95rem;
+        }
+
+        .resume-details li {
+            margin-bottom: 0.6rem;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-badge {
+            background-color: rgba(135, 206, 235, 0.2);
+            color: var(--primary-color);
+            padding: 0.4rem 0.8rem;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: 1px solid var(--primary-color);
+        }
+        .tech-badge:hover {
+            background-color: var(--primary-color);
+            color: var(--text-color-dark);
+        }
+
+        .project-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+            padding-top: 1rem;
+            border-top: 1px dashed rgba(255, 255, 255, 0.1);
+        }
+
+        .status {
+            display: inline-block;
+            padding: 0.4rem 0.9rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-color-dark);
+        }
+
+        .status-Serving-Notice-Period { background-color: var(--status-notice-period); }
+        .status-Completed { background-color: var(--status-completed); }
+        .status-In-Progress { background-color: var(--status-inprogress); }
+        .status-Planning { background-color: var(--status-planning); }
+        .status-Serving-Notice-Period { background-color: var(--status-notice-period); }
+
+
+        .completion-date {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Toggle button styles */
+        .toggle-btn {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 1rem;
+            align-self: flex-start; /* Aligns button to the left */
+        }
+
+        .toggle-btn:hover {
+            background-color: var(--primary-color);
+            color: var(--text-color-dark);
+        }
+
+        .toggle-btn i {
+            margin-left: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        /* Rotate icon when expanded */
+        .project-card.expanded .toggle-btn i {
+            transform: rotate(180deg);
+        }
+
+        /* =================================================== */
+        /* Footer and Responsive styles remain the same */
+        /* =================================================== */
+        footer {
+            background-color: var(--card-bg-dark);
+            padding: 2.5rem 0;
+            box-shadow: 0 -6px 16px rgba(0,0,0,0.7);
+            text-align: center;
+            color: var(--text-color-light);
+            margin-top: 3rem;
+        }
+
+        .contact-info {
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+
+        .contact-info p {
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-info a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s ease, text-decoration 0.3s ease;
+        }
+
+        .contact-info a:hover {
+            color: var(--secondary-color);
+            text-decoration: underline;
+        }
+
+        .copyright {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1024px) {
+            .projects-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+            header h1 { font-size: 2.8rem; }
+            header h2 { font-size: 1.6rem; }
+            .summary-section h3, .skills-section h3 { font-size: 1.8rem; }
+        }
+
+        @media (max-width: 768px) {
+            .projects-grid { grid-template-columns: 1fr; }
+            header h1 { font-size: 2.2rem; }
+            header h2 { font-size: 1.4rem; }
+            .summary-section h3, .skills-section h3 { font-size: 1.6rem; }
+            .summary-section p { font-size: 1rem; }
+            .skills-grid { justify-content: flex-start; }
+            .skill-badge { padding: 0.5rem 1rem; font-size: 0.85rem; }
+            .project-card { padding: 1.5rem; }
+            .project-name { font-size: 1.3rem; }
+            .project-description { font-size: 0.95rem; }
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 0 15px; }
+            header h1 { font-size: 1.8rem; }
+            header h2 { font-size: 1.2rem; }
+            .summary-section h3, .skills-section h3 { font-size: 1.4rem; }
+            .summary-section p { font-size: 0.9rem; }
+            .contact-info { font-size: 0.9rem; }
+            .resume-btn { position: static; margin-top: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="https://docs.google.com/document/d/1Zmv2NVgsPqgL_bfY0YmAMY0w_xGIDtwG/edit?usp=drive_link&ouid=113978765611895534442&rtpof=true&sd=true" target="_blank" class="resume-btn" id="view-resume-btn"><i class="fas fa-file-alt"></i>View Resume</a>
+            <div class="logo">MK</div>
+            <h1>Mounika K</h1>
+            <h2>Full stack java developer</h2>
+        </div>
+    </header>
+
+    <main class="container" id="main-content">
+        <section class="summary-section">
+            <h3>Professional Summary</h3>
+            <p>
+                Results-driven Full Stack Java Developer with 7+ years of experience building and deploying scalable enterprise solutions. Expertise in modern JavaScript frameworks (React, Angular), back-end technologies (Java, Python), and scalable databases (PostgreSQL, MongoDB). Proven ability to leverage cloud platforms (AWS, Azure) and DevOps best practices, including Kubernetes and CI/CD, to deliver robust, user-centric software products.
+            </p>
+        </section>
+
+        <section class="skills-section">
+            <h3>My Skills Stack</h3>
+            <div class="skills-grid" id="skills-grid">
+                <!-- Skills will be dynamically inserted here -->
+            </div>
+        </section>
+
+        <div class="projects-grid" id="projects-grid"></div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="contact-info">
+                <p>Contact: <a href="mailto:mounikk0201@gmail.com" id="contact-email">mounikk0201@gmail.com</a></p>
+                <p>Phone: <span id="contact-phone">469-732-6686</span></p>
+                <p>Connect: <a href="https://www.linkedin.com/in/mounika-kasetti-686979163" target="_blank" id="linkedin">LinkedIn Profile</a> | <a href="https://github.com/yourgithub" target="_blank" id="github">GitHub Profile</a></p>
+            </div>
+            <div class="copyright">
+                <p>&copy; <span id="current-year">2023</span>. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const portfolioData = {
+            "name": "Mounika K",
+            "title": "Full stack java developer",
+            "contact": {
+                "email": "mounikk0201@gmail.com",
+                "phone": "469-732-6686",
+                "linkedin": "https://www.linkedin.com/in/mounika-kasetti-686979163",
+                "github": "https://github.com/yourgithub",
+                "googleDrive": "https://docs.google.com/document/d/1Zmv2NVgsPqgL_bfY0YmAMY0w_xGIDtwG/edit?usp=drive_link&ouid=113978765611895534442&rtpof=true&sd=true"
+            },
+            "summary": "Results-driven Full Stack Java Developer with 7+ years of experience building and deploying scalable enterprise solutions. Expertise in modern JavaScript frameworks (React, Angular), back-end technologies (Java, Python), and scalable databases (PostgreSQL, MongoDB). Proven ability to leverage cloud platforms (AWS, Azure) and DevOps best practices, including Kubernetes and CI/CD, to deliver robust, user-centric software products.",
+            "projects": [
+                {
+                    "name": "ATM Modernization and Microservices Migration",
+                    "description": "Engaged in full-stack development and production support for JPMorgan Chase's software systems powering over 15,000 retail ATMs. Provided L2/L3 support by troubleshooting critical issues to maximize ATM uptime and customer satisfaction. Developed and maintained back-end microservices using Java 17 and Spring Boot, enhancing functionality, security features, and service integrations. Collaborated with cross-functional teams to implement code changes and drive continuous improvement initiatives for optimized performance and user experience.",
+                    "tech_stack": [
+                        "Java (11, 17)", "Go", "Shell Scripting", "JavaScript",
+                        "Spring Boot", "Spring MVC", "Spring Data JPA", "Apache Camel", "Angular 12", "Camunda – BPMN",
+                        "AWS (Lambda, API Gateway, ECS, EKS)", "GCP", "Docker", "Kubernetes", "Jenkins", "UCD - Deploy", "Cloud Foundry", "Git",
+                        "Oracle", "DB2", "SQL Server", "MongoDB",
+                        "Splunk", "Grafana",
+                        "Kafka (with SSL, SASL, ACLs)",
+                        "JUnit", "Log4j", "Postman", "SOAP UI", "JMeter", "Swagger",
+                        "ServiceNow"
+                    ],
+                    "status": "Serving Notice Period",
+                    "url": "#",
+                    "image_url": null,
+                    "completion_date": "August 2025",
+                    "resume_details": [
+                        "Built enterprise-class applications from front-end to back-end, including API design and DevOps functions.",
+                        "Developed microservices for user management, billing, and notifications using Docker and AWS Lambda.",
+                        "Designed and implemented RESTful APIs for various functionalities, including user authentication with JWT.",
+                        "Improved database indexing, which reduced query time by 60%, and worked with Oracle, DB2, SQL Server, and MongoDB.",
+                        "Migrated applications across Java 11, 17 and latest Spring Boot versions.",
+                        "Automated builds and deployments using Jenkins and Urban Code Deploy to AWS ECS and EKS.",
+                        "Developed and maintained CI/CD pipelines using Cloud Build and Cloud Deploy for containerized applications, enabling rapid and consistent deployments to GKE.",
+                        "Managed and optimized GCP networking components, including VPCs, Shared VPCs, Firewall Rules, and Load Balancers, ensuring secure and performant application connectivity.",
+                        "Implemented Infrastructure as Code (IaC) using Terraform to provision and manage all GCP resources, leading to a 30% reduction in manual configuration errors.",
+                        "Provided L3 support for critical GCP production environments, troubleshooting issues across Compute Engine, Cloud SQL, and GKE to maintain high availability and performance.",
+                        "Utilized Splunk and Grafana for real-time monitoring, alert analysis, and log investigation to resolve production issues.",
+                        "Designed and implemented business workflows and decision models using Camunda's BPMN and DMN (Decision Model and Notation) standards.",
+                        "Utilized Java and Spring Boot to build and deploy Camunda process applications that integrate with microservices.",
+                        "Orchestrated services across legacy systems and APIs by implementing and managing Camunda external task workers.",
+                        "Integrated B2B APIs using the Apache Camel framework in old legacy applications and implemented Kafka security features (SSL, SASL).",
+                        "Enhanced ATM transaction processing applications, improving efficiency by 20% and processing speed by 15% through performance tuning."
+                    ]
+                },
+                {
+                    "name": "The Acquisition and Integration of Info Armor (Allstate Insurance)",
+                    "description": "Modernization of the core insurance policy and claims management platform. This multi-year initiative aimed to migrate legacy monolithic systems to a cloud-native, microservices-based architecture to improve scalability, reduce operational costs, and enable faster delivery of new digital products for customers and agents.",
+                    "tech_stack": [
+                        "Java 8/11", "SQL",
+                        "Spring Boot", "Spring MVC", "Spring Security", "Hibernate", "Blaze- BRMS",
+                        "AWS (EKS)", "Docker", "Kubernetes", "Jenkins", "Git", "Azure",
+                        "Oracle", "DB2", "MongoDB",
+                        "Apache Kafka",
+                        "JUnit", "Mockito"
+                    ],
+                    "status": "Completed",
+                    "url": "#",
+                    "image_url": null,
+                    "completion_date": "October 2022",
+                    "resume_details": [
+                        "Acted as a key member of a team responsible for migrating legacy Java applications from on-premise infrastructure to a modern microservices architecture on AWS.",
+                        "Designed, developed, and maintained RESTful APIs using Java 8/11 and the Spring Boot framework to manage policy quotes, claims submissions, and customer data.",
+                        "Built and deployed new microservices using Docker and managed their orchestration and scaling with Kubernetes (EKS), which led to a 25% reduction in deployment time.",
+                        "Designed and optimized database schemas in both relational (Oracle, DB2) and NoSQL (MongoDB) databases, improving data retrieval efficiency for high-volume transactions.",
+                        "Implemented the Blaze Rules Engine to externalize and automate complex business decisions within a larger enterprise application, enhancing the agility and adaptability of business processes.",
+                        "Authored and maintained structured rule sets, decision tables, and decision services using Blaze Advisor, ensuring all business logic was centralized, version-controlled, and easily auditable.",
+                        "Developed Java-based microservices and REST APIs to interact with the Blaze Rules Engine, enabling on-demand, real-time rule execution from different systems within the business process.",
+                        "Worked on applications using Azure Virtual Machines (VMs), Azure Functions (serverless), Azure App Service, Azure Kubernetes Service (AKS), and Azure Container Instances (ACI).",
+                        "Implemented Networking concepts for other applications, including Virtual Networks (VNet), Network Security Groups (NSG), Load Balancers, Azure DNS, Azure CDN, VPN Gateway, and Azure Firewall.",
+                        "Actively participated in the full software development lifecycle for rules-based solutions, from requirements gathering and rules harvesting to testing, deployment, and performance tuning of the Blaze Rules Engine.",
+                        "Collaborated with business analysts to analyze and model business requirements, translating them into executable rules, which streamlined operational efficiency and reduced manual decision-making.",
+                        "Implemented CI/CD pipelines using Jenkins, automating builds and deployments and ensuring continuous delivery of application updates.",
+                        "Worked in a highly collaborative Agile/Scrum environment, participating in daily stand-ups, sprint planning, and code reviews to ensure high-quality, maintainable code.",
+                        "Conducted performance tuning on Java applications, including optimizing garbage collection and database queries, which resulted in a 20% increase in system processing speed.",
+                        "Implemented security best practices for APIs, including OAuth2 and JWT, and performed unit and integration testing with JUnit to achieve over 85% code coverage."
+                    ]
+                },
+                {
+                    "name": "Digital Banking Platform (Q2 Solutions)",
+                    "description": "As a Programmer Analyst, I was responsible for the full software lifecycle of the digital banking platform, a mission-critical system serving hundreds of financial institutions. My role involved analysing business needs from banks and credit unions, designing technical solutions, and implementing them through development, testing, and production support to drive digital innovation.",
+                    "tech_stack": [
+                        "Java", "JavaScript", "SQL",
+                        "Spring Boot", "Angular", "jQuery",
+                        "AWS (EKS)", "Docker", "Kubernetes", "Jenkins", "Git",
+                        "MySQL", "SQL Server",
+                        "Dynatrace"
+                    ],
+                    "status": "Completed",
+                    "url": "#",
+                    "image_url": null,
+                    "completion_date": "September 2018",
+                    "resume_details": [
+                        "Worked directly with product owners and business stakeholders to translate complex business requirements into detailed technical specifications for new banking features and platform enhancements.",
+                        "Developed and maintained features across the entire application stack, from front-end user interfaces (JavaScript, Angular) to back-end services using Java and Spring Boot.",
+                        "Designed and implemented RESTful APIs for new banking products (e.g., fraud prevention tools) and integrated with third-party fintech services using the SDK.",
+                        "Maintained and enhanced CI/CD pipelines using Jenkins and managed application deployments on AWS via Docker and Kubernetes.",
+                        "Actively monitored live production environments using tools like Dynatrace to detect performance issues and provided timely resolution of high-priority incidents to meet strict SLAs.",
+                        "Designed database schemas (MySQL) and wrote optimized queries to support core banking functions, ensuring data integrity and transactional consistency.",
+                        "Created and maintained technical documentation, including system designs and operational procedures, to facilitate knowledge sharing and team collaboration."
+                    ]
+                }
+            ]
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set contact placeholders
+            document.getElementById('contact-email').href = `mailto:${portfolioData.contact.email}`;
+            document.getElementById('contact-email').textContent = portfolioData.contact.email;
+            document.getElementById('contact-phone').textContent = portfolioData.contact.phone;
+            document.getElementById('linkedin').href = portfolioData.contact.linkedin;
+            document.getElementById('linkedin').textContent = "LinkedIn Profile";
+            document.getElementById('github').href = portfolioData.contact.github;
+            document.getElementById('github').textContent = "GitHub Profile";
+
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+
+            const projectsGrid = document.getElementById('projects-grid');
+            const skillsGrid = document.getElementById('skills-grid');
+
+            const allSkills = new Set();
+            portfolioData.projects.forEach(project => {
+                project.tech_stack.forEach(skill => allSkills.add(skill));
+            });
+
+            const sortedSkills = Array.from(allSkills).sort();
+
+            sortedSkills.forEach(skill => {
+                const skillBadge = document.createElement('span');
+                skillBadge.className = 'skill-badge';
+
+                let iconClass = 'fas fa-code'; // Default generic icon
+
+                if (skill.includes("Java")) iconClass = 'fab fa-java';
+                else if (skill.includes("Spring")) iconClass = 'fas fa-leaf';
+                else if (skill.includes("AWS")) iconClass = 'fab fa-aws';
+                else if (skill.includes("GCP")) iconClass = 'fas fa-cloud';
+                else if (skill.includes("Docker")) iconClass = 'fab fa-docker';
+                else if (skill.includes("Kubernetes")) iconClass = 'fas fa-dharmachakra';
+                else if (skill.includes("Jenkins")) iconClass = 'fab fa-jenkins';
+                else if (skill.includes("Git")) iconClass = 'fab fa-git-alt';
+                else if (skill.includes("Oracle") || skill.includes("DB2") || skill.includes("SQL Server") || skill.includes("MongoDB") || skill.includes("MySQL")) iconClass = 'fas fa-database';
+                else if (skill.includes("JavaScript") || skill.includes("Angular") || skill.includes("jQuery")) iconClass = 'fab fa-js';
+                else if (skill.includes("Kafka")) iconClass = 'fas fa-stream';
+                else if (skill.includes("JUnit") || skill.includes("Mockito")) iconClass = 'fas fa-flask';
+                else if (skill.includes("Splunk") || skill.includes("Grafana") || skill.includes("Dynatrace")) iconClass = 'fas fa-chart-line';
+                else if (skill.includes("Shell Scripting")) iconClass = 'fas fa-terminal';
+                else if (skill.includes("ServiceNow")) iconClass = 'fas fa-headset';
+                else if (skill.includes("Azure")) iconClass = 'fab fa-microsoft';
+                else if (skill.includes("Camunda")) iconClass = 'fas fa-project-diagram';
+                else if (skill.includes("Apache Camel")) iconClass = 'fas fa-exchange-alt';
+                else if (skill.includes("Go")) iconClass = 'fab fa-golang';
+
+                const iconHtml = `<i class="skill-icon ${iconClass}"></i>`;
+                
+                skillBadge.innerHTML = iconHtml + skill;
+                skillsGrid.appendChild(skillBadge);
+            });
+
+            portfolioData.projects.forEach(project => {
+                const card = document.createElement('div');
+                card.className = 'project-card';
+                card.dataset.expanded = 'false';
+
+                if (project.url && project.url !== '#') {
+                    card.classList.add('clickable');
+                    card.addEventListener('click', () => {
+                        window.open(project.url, '_blank');
+                    });
+                }
+
+                const statusClass = project.status.replace(/ /g, '-');
+
+                let resumeDetailsHtml = '';
+                if (project.resume_details && project.resume_details.length > 0) {
+                    resumeDetailsHtml = `
+                        <div class="resume-details">
+                            <h4>Key Contributions:</h4>
+                            <ul>
+                                ${project.resume_details.map(detail => `<li>${detail}</li>`).join('')}
+                            </ul>
+                        </div>
+                    `;
+                }
+
+                card.innerHTML = `
+                    <h3 class="project-name">${project.name}</h3>
+                    <p class="project-description">${project.description}</p>
+                    <div class="collapsible-content">
+                      ${resumeDetailsHtml}
+                      <div class="tech-stack">
+                          ${project.tech_stack.map(tech => `<span class="tech-badge">${tech}</span>`).join('')}
+                      </div>
+                    </div>
+                    <button class="toggle-btn" type="button">Read More <i class="fas fa-chevron-down"></i></button>
+                    <div class="project-meta">
+                        <span class="status status-${statusClass}">${project.status}</span>
+                        ${project.completion_date ? `<span class="completion-date">${project.completion_date}</span>` : ''}
+                    </div>
+                `;
+
+                projectsGrid.appendChild(card);
+            });
+
+            // Add event listeners to the toggle buttons
+            document.querySelectorAll('.toggle-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const card = button.closest('.project-card');
+                    const isExpanded = card.dataset.expanded === 'true';
+                    
+                    if (isExpanded) {
+                        card.classList.remove('expanded');
+                        card.dataset.expanded = 'false';
+                        button.innerHTML = 'Read More <i class="fas fa-chevron-down"></i>';
+                    } else {
+                        card.classList.add('expanded');
+                        card.dataset.expanded = 'true';
+                        button.innerHTML = 'Read Less <i class="fas fa-chevron-up"></i>';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
